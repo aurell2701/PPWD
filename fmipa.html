@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-MIPA UNTAN - Fakultas Matematika dan Ilmu Pengetahuan Alam</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMD/CDQd/5y6e8A9V7i9Y16lG/yP95T/1s1Bf5m1T1v+7d7bI4wT1X5F5g5L4Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <style>
+        /* CSS Utama & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa; /* Latar belakang untuk konten */
+        }
+        
+        /* Tema Warna */
+        :root {
+            --primary-color: #004D99; /* Biru-Ungu Cerah */
+            --secondary-color: #000000; /* Ungu Gelap */
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(255, 193, 7, 0.2));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 35px;
+            margin-right: 10px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .prodi-logo {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+        margin: 10px auto 15px;
+        display: block;
+        background: white;
+        padding: 5px;
+        border-radius: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 193, 7, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section (Menggunakan gaya template Anda) */
+        .hero {
+            background: linear-gradient(rgba(102, 126, 234, 0.8), rgba(255, 193, 7, 0.2)),
+                url('https://mipa.untan.ac.id/file/slideshow/f17be5239a6b046ccd3ffc76da77d054.webp') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 180px 5% 120px;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling Umum */
+        section {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            width: fit-content;
+        }
+        
+        .section-title-wrapper {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        /* About Section (Visi Misi) */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .card-fmipa {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        
+        .card-fmipa h3 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .list-unstyled li {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        /* Statistik Section (Untuk Diagram) */
+        #statistik {
+            background: white; /* Mengubah background agar menonjol */
+        }
+        
+        .chart-container {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Highcharts specific for cursor */
+        #container {
+            cursor: pointer;
+            height: 500px;
+        }
+        
+        /* Programs Section */
+        #programs {
+            background: var(--light-bg);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 193, 7, 0.2);
+        }
+        
+        .program-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .program-card h3 {
+            color: var(--text-color);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .program-card p {
+            color: #666;
+            font-size: 0.9rem;
+            min-height: 40px;
+        }
+        
+        .program-card .btn-prodi {
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .program-card .btn-prodi:hover {
+            background: var(--secondary-color);
+        }
+
+        /* News Section (Diambil dari struktur template Anda) */
+        #news {
+            background: white;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-content h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .news-date {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .news-label {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            text-align: left;
+            gap: 30px;
+        }
+        
+        .footer-content h5 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+        
+        .footer-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-content ul li a, .footer-content p {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-content ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .programs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper" class="d-flex flex-column min-vh-100">
+        <header>
+            <nav>
+                <div class="logo">
+                    <img src="https://mipa.untan.ac.id/images/logo-mipa-dark.png" alt="Logo FMIPA" style="background: white; padding: 5px; border-radius: 5px;">
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <ul id="navMenu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#statistik">Statistik</a></li>
+                    <li><a href="#programs">Program Studi</a></li>
+                    <li><a href="#news">Berita</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="flex-grow-1">
+
+            <section class="hero" id="home">
+                <h1>WEBSITE RESMI</h1>
+                <p>Menjadi institusi unggul dalam transformasi, pengembangan dan penyebarluasan sains dan teknologi.</p>
+                <a href="#programs" class="btn">Jelajahi Program Studi</a>
+            </section>
+            
+            <section id="about">
+                <div class="section-title-wrapper">
+                    <h2>Tentang FMIPA UNTAN</h2>
+                    <p style="color: #666;">Mengenal lebih dekat Fakultas Matematika dan Ilmu Pengetahuan Alam.</p>
+                </div>
+
+                <div class="about-content">
+                    <div class="card-fmipa">
+                        <h3><i class="fas fa-user-tie me-2"></i> Sambutan Dekan & Visi</h3>
+                        <p style="font-style: italic;">"Assalaamu’alaikum wr. wb.
+                        <p style="font-style: italic;"></p>Selamat datang di website resmi Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Tanjungpura (FMIPA Untan) Pontianak. Pada awal berdirinya tahun 2002, FMIPA Untan bernama Fakultas Matematika dan Ilmu Pengetahuan Alam (Persiapan). Ketika pertama kali menerima mahasiswa pada tahun akademik 2002/2003 , FMIPA Untan menyelenggarakan proses pembelajaran pada empat program studi jenjang S-1 yaitu Matematika, Fisika, Kimia, dan Biologi. Saat ini FMIPA Untan menyelenggarakan sembilan program studi jenjang S-1 (Matematika, Fisika, Kimia, Biologi, Rekayasa Sistem Komputer, Ilmu Kelautan, Sistem Informasi, Statistik, Geofisika). dan satu program studi jenjang S-2 (Kimia)."</p>
+                        <p style="color: #666; font-size: 0.95rem;">Website resmi FMIPA Universitas Tanjungpura</p>
+                        <a href="https://mipa.untan.ac.id/tentang-kami/visi-misi-tujuan" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">Baca Visi Misi Lengkap &rarr;</a>
+                    </div>
+                    
+                    <div class="card-fmipa" style="background: var(--light-bg);">
+                        <h3><i class="fas fa-landmark me-2"></i> Sejarah Singkat</h3>
+                        <p style="font-size: 0.9rem; color: #666;">
+                        </p>Pendirian Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Tanjungpura dipelopori oleh Rektor UNTAN periode 1982-1991 (Prof. Dr. H. Hadari Nawawi) dan diawali dengan dibentuknya Badan Pengelola Matematika dan Ilmu Pengetahuan Alam (BP. MIPA) Untan pada tahun 1992 berdasarkan Surat Keputusan Rektor Universitas Tanjungpura Nomor:4669/PT29.H/E/1992, tanggal 26 Nopember 1992. Pada tahun 1999 berdasarkan Surat Keputusan Rektor Universitas Tanjungpura nomor:193a/J22/KP/1999, tanggal 1 April 1999 diadakan penggantian pengurus BPMIPA sekaligus mengganti nama Badan Pengelola Matematika dan Ilmu Pengetahuan Alam (BPMIPA) menjadi Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA).</p>
+                        <a href="https://mipa.untan.ac.id/tentang-kami/sejarah" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">Sejarah Lengkap &rarr;</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="statistik" style="background: white;">
+                <div class="section-title-wrapper">
+                    <h2>Statistik Jumlah Mahasiswa (Data Per Tahun)</h2>
+                    <p style="color: #666;">Distribusi Mahasiswa Baru 2025/2026 (Klik pada potongan diagram untuk ke Website Prodi)</p>
+                </div>
+                
+                <div class="chart-container">
+                    <div id="container"></div>
+                </div>
+            </section>
+
+            <section id="programs">
+                <div class="section-title-wrapper">
+                    <h2>Jelajahi Program Studi Kami</h2>
+                    <p style="color: #666;">Total 10 Program Studi (9 S1, 1 S2) di FMIPA UNTAN.</p>
+                </div>
+
+                <div class="programs-grid">
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-bug"></i>
+                        <h3>S1 Biologi</h3>
+                        <p>Fokus pada biodiversitas, mikrobiologi, dan konservasi.</p>
+                        <img src="3f6f8e6ffe764c336ca0e645cf669fa2Himabio-FMIPA-Untan.png"
+                        class="prodi-logo">
+                        <a href="https://biologi.fmipa-untan.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-atom"></i>
+                        <h3>S1 Fisika</h3>
+                        <p>Fokus pada material, instrumentasi, dan fisika komputasi.</p>
+                        <img src="f90a6b751e91764924470c6bddd797b3himafis.jpg"
+                        class="prodi-logo">
+                        <a href="https://fisika.fmipa.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-flask"></i>
+                        <h3>S1 Kimia</h3>
+                        <p>Eksplorasi bahan alam, kimia organik, dan analisis lingkungan.</p>
+                        <img src="8a5d90a563f0cf4d9ebe513d1be167613437e959390229c5946694acd813cb8aHimki.jpeg"
+                        class="prodi-logo">
+                        <a href="https://chemistry.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-calculator"></i>
+                        <h3>S1 Matematika</h3>
+                        <p>Mempelajari teori, analisis, dan pemodelan matematika.</p>
+                        <img src="8b01588f200e4160a1f0a10898936c6chimatika.jpg"
+                        class="prodi-logo">
+                        <a href="https://math.fmipa.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-microchip" style="color: var(--secondary-color);"></i>
+                        <h3>S1 Sistem Komputer</h3>
+                        <p>Fokus pada arsitektur, jaringan, dan keamanan sistem komputer.</p>
+                        <img src="180ec9658b030b92eb8959b9afed76c0Himaster-FMIPA-Untan.png"
+                        class="prodi-logo">
+                        <a href="https://siskom.untan.ac.id/" class="btn-prodi" style="background: var(--secondary-color);">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>S1 Sistem Informasi</h3>
+                        <p>Perancangan arsitektur sistem dan manajemen basis data bisnis.</p>
+                        <img src="39019d11a25d143555a634a7f17baebehmsi.jpg"
+                        class="prodi-logo">
+                        <a href="https://sisfo.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                    <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-ship"></i>
+                        <h3>S1 Ilmu Kelautan</h3>
+                        <p>Mengkaji ekosistem laut, oseanografi, dan sumber daya kelautan.</p>
+                        <img src="cbe294c9c4e75bd2b907bc6bfe9215c9hmik.jpg"
+                        class="prodi-logo">
+                        <a href="https://mipa.untan.ac.id/program-studi/sarjana/ilmu-kelautan" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                     <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>S1 Statistika</h3>
+                        <p>Pengumpulan, analisis, dan interpretasi data (Data Science).</p>
+                        <img src="9009c8a98b8f86828e7b9376b3a24ce5Himasta.png"
+                        class="prodi-logo">
+                        <a href="https://s1stat.fmipa.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                     <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-globe-asia"></i>
+                        <h3>S1 Geofisika</h3>
+                        <p>Mempelajari struktur bumi untuk eksplorasi sumber daya alam.</p>
+                        <img src="ef6b55dee6dec2a5fce667fe32a6ea4fLogoHMG.png"
+                        class="prodi-logo">
+                        <a href="https://geofisika.fmipa-untan.id/en" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                     <div class="program-card" style="box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>S2 Kimia</h3>
+                        <p>Program Magister Kimia untuk riset dan pengembangan materi.</p>
+                        <a href="https://chemistry.untan.ac.id/" class="btn-prodi">Lihat Detail</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="news">
+                <div class="section-title-wrapper">
+                    <h2>Berita & Pengumuman Terbaru</h2>
+                    <p style="color: #666;">Informasi terkini dari lingkungan FMIPA UNTAN.</p>
+                </div>
+                
+                <div class="news-grid">
+                    <a href="https://mipa.untan.ac.id/berita/pilmapres-fmipa-untan-2025" style="text-decoration: none; color: inherit;">
+                        <div class="news-card">
+                            <div class="news-content">
+                                <img src="22f4b952d7ef2ce6a5ae3b00028c5ec5.jpeg"
+                                style="width: 100%; max-width: 350px; height: auto;">
+                                <h3>Pemilihan Mahasiswa Berprestasi (Pilmapres) FMIPA UNTAN 2025</h3>
+                                <span class="news-date"><i class="fas fa-calendar-days me-1"></i> 16 Mei 2025</span>
+                                <span class="news-label">KEMAHASISWAAN</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://mipa.untan.ac.id/lihat-berita/pemilihan-mahasiswa-berprestasi-pilmapres-fmipa-untan-2025" style="text-decoration: none; color: inherit;">
+                        <div class="news-card">
+                            <div class="news-content">
+                                <img src="fotooo_footer.png"
+                                style="width: 100%; max-width: 350px; height: auto;">
+                                <h3>Statistics Competition 2025 : Bersaing Dengan Visualisasi Statistik</h3>
+                                <span class="news-date"><i class="fas fa-bell me-1"></i></span>
+                                <span class="news-label" style="background: red;">Prodi Statistika</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://s1stat.fmipa.untan.ac.id/2025/06/13/statistics-competition-2025-bersaing-dengan-visualisasi-statistik/" style="text-decoration: none; color: inherit;">
+                        <div class="news-card">
+                            <div class="news-content">
+                                <img src="WhatsApp Image 2025-11-07 at 14.03.53_45918e2b.jpg"
+                                style="width: 100%; max-width: 350px; height: auto;">
+                                <h3>Kuliah Umum Prodi Sistem Informasi “TA Gak Toxic Lagi ( Healing Bareng Depth Therapist Biar Skripsi Approve Tanpa Overthinking ) ”</h2>
+                                <span class="news-date"><i class="fas fa-calendar-days me-1"></i> 14 November 2025</span>
+                                <span class="news-label" style="background: orange;">Prodi Sistem Informasi</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <section id="contact" style="background: white;">
+                <div class="section-title-wrapper">
+                    <h2>Hubungi Kami</h2>
+                    <p style="color: #666;">Lokasi Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Tanjungpura</p>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3 style="margin-bottom: 1.5rem;">Informasi Kontak Resmi</h3>
+                        <div class="contact-item">
+                            <span class="contact-icon" style="color: var(--primary-color);"></span>
+                            <div>
+                                <strong>Alamat</strong><br>
+                                JL. Prof. Dr. H. Hadari Nawawi – Kode Pos: 78124, Pontianak.
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon" style="color: var(--primary-color);"></span>
+                            <div>
+                                <strong>Telepon</strong><br>
+                                (0561) 577963
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon" style="color: var(--primary-color);"></span>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@fmipa.untan.ac.id
+                            </div>
+                        </div>
+                         <div class="contact-item">
+                            <span class="contact-icon" style="color: var(--primary-color);"></span>
+                            <div>
+                                <strong>Website</strong><br>
+                                mipa.untan.ac.id
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                         <h3 style="margin-bottom: 1.5rem;">Peta Lokasi</h3>
+                        <div style="width: 100%; height: 350px; border-radius: 10px; overflow: hidden;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8164326584285!2d109.33642397444747!3d-0.05586949999999203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e24e137f8f41183%3A0x6b772b947c617887!2sFakultas%20Matematika%20dan%20Ilmu%20Pengetahuan%20Alam%20(FMIPA)%20Universitas%20Tanjungpura!5e0!3m2!1sid!2sid!4v1700465293233!5m2!1sid!2sid" 
+                                    width="100%" 
+                                    height="100%" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <img src="https://mipa.untan.ac.id/images/logo-mipa.png" alt="Logo FMIPA Putih" style="max-height: 40px;" class="mb-3">
+                    <p>FMIPA UNTAN berdedikasi menghasilkan lulusan yang kompeten di bidang sains dan teknologi berbasis lingkungan tropis.</p>
+                </div>
+                <div>
+                    <h5>Link Akses Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://untan.ac.id">Universitas Tanjungpura</a></li>
+                        <li><a href="https://siam.untan.ac.id/">Sistem Informasi Akademik (SIAM)</a></li>
+                        <li><a href="https://mipa.untan.ac.id/jurnal">Jurnal Ilmiah (BIMASTER, JKK, dll)</a></li>
+                        <li><a href="https://mipa.untan.ac.id/kemahasiswaan">Kemahasiswaan & Beasiswa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Sosial Media</h5>
+                    <div style="font-size: 1.5rem;">
+                        <a href="https://facebook.com/fmipauntan" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/fmipa.untan" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/fmipauntan" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <p style="margin-top: 15px;">(0561) 577963</p>
+                    <p>info@fmipa.untan.ac.id</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fakultas Matematika dan Ilmu Pengetahuan Alam - Universitas Tanjungpura.</p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Dikelola oleh TIM TIK FMIPA UNTAN</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // SCRIPT HIGHCHARTS (DIAGRAM INTERAKTIF DENGAN DATA KUSTOM)
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data Mahasiswa KUSTOM: 60 untuk semua, 90 untuk Rekayasa Sistem Komputer
+            const prodiData = [
+                { name: 'Biologi (S1)', y: 68, url: 'https://biologi.fmipa-untan.id/' },
+                { name: 'Fisika (S1)', y:40, url: 'https://fisika.fmipa-untan.id/' },
+                { name: 'Ilmu Kelautan (S1)', y: 35, url: 'https://mipa.untan.ac.id/program-studi/sarjana/ilmu-kelautan' },
+                { name: 'Kimia (S1)', y: 40, url: 'https://chemistry.untan.ac.id/' },
+                { name: 'Matematika (S1)', y: 45, url: 'https://s1math.fmipa.untan.ac.id/' },
+                // Data KUSTOM: 90 Mahasiswa
+                { name: 'Rekayasa Sistem Komputer (S1)', y: 90, url: 'https://siskom.untan.ac.id/' }, 
+                { name: 'Sistem Informasi (S1)', y: 78, url: 'https://sisfo.untan.ac.id/' },
+                { name: 'Geofisika (S1)', y: 66, url: 'https://geofisika.fmipa-untan.id/' },
+                { name: 'Statistika (S1)', y: 60, url: 'https://s1stat.fmipa.untan.ac.id/' },
+                { name: 'S2 Kimia (Magister)', y: 70, url: 'https://chemistry.untan.ac.id/akademik/program-pasca-sarjana/' }
+            ];
+
+            Highcharts.chart('container', { // Target ID: 'container' di bagian Statistik
+                chart: { 
+                    plotBackgroundColor: null, 
+                    plotBorderWidth: null, 
+                    plotShadow: false, 
+                    type: 'pie',
+                    backgroundColor: 'transparent' // Agar menyatu dengan background section
+                },
+                title: { text: 'Distribusi Mahasiswa Baru Per Program Studi' },
+                tooltip: { pointFormat: '<b>{point.name}</b>: {point.y} Mahasiswa ({point.percentage:.1f}%)' },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true, 
+                        cursor: 'pointer',
+                        dataLabels: { 
+                            enabled: true, 
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %' 
+                        },
+                        // FUNGSI KLIK INTERAKTIF: BUKA URL ASLI PRODI DI TAB BARU
+                        point: {
+                            events: {
+                                click: function () {
+                                    if (this.url) {
+                                        window.open(this.url, '_blank');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah Mahasiswa', colorByPoint: true, data: prodiData
+                }]
+            });
+        });
+    </script>
+</body>
+</html>
